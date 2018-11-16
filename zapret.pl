@@ -15,7 +15,6 @@ use File::Basename;
 use Getopt::Long;
 use Log::Log4perl;
 use Net::IP qw(:PROC);
-use Net::SMTP;
 use Email::MIME;
 use PerlIO::gzip;
 use POSIX qw(strftime);
@@ -24,6 +23,7 @@ use File::Path qw(make_path);
 use File::Copy;
 use Digest::MD5 qw (md5_hex);
 use Fcntl qw(LOCK_EX LOCK_NB);
+use Net::SMTP::SSL;
 
 use Data::Dumper;
 use Devel::Size qw(size total_size);
@@ -452,7 +452,7 @@ sub Mail
 	{
 		eval {
 			my $to = $_;
-			my $smtp = Net::SMTP->new($smtp_host.':'.$smtp_port, Debug => 0) or do { $logger->error( "Can't connect to the SMTP server: $!"); return; };
+			my $smtp = Net::SMTP::SSL->new($smtp_host.':'.$smtp_port, Debug => 0) or do { $logger->error( "Can't connect to the SMTP server: $!"); return; };
 	
 			eval {
 			    require MIME::Base64;
