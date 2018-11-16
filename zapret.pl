@@ -1476,7 +1476,12 @@ sub formRequest
 	print REQ $new;
 	close REQ;
 	
-	`$openssl_bin_path/openssl smime -sign -in $req_file -out $sig_file -binary -signer $dir/cert.pem -outform DER`;
+	if (-e "$dir/cert.pem") {
+		`$openssl_bin_path/openssl smime -sign -in $req_file -out $sig_file -binary -signer $dir/cert.pem -outform DER`;
+	} else {
+		$logger->info("No cert.pem file");
+	}
+	
 }
 
 sub sendRequest
