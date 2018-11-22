@@ -119,7 +119,8 @@ my $mail_stat = $Config->{'MAIL.stat'} || 0;
 my $mail_max_entries = $Config->{'MAIL.max_entries'} || 150;
 my $mail_check_report = $Config->{'MAIL.check_report'} || 0;
 my $mail_nofresh_report = $Config->{'MAIL.nofresh_report'} || 0;
-my $mail_subject = $Config->{'MAIL.subject'} || "zapret update!";
+my $subject_prefix = $Config->{'MAIL.subject_prefix'} || "";
+my $mail_subject = $Config->{'MAIL.subject'} || $subject_prefix." zapret update!";
 
 my $form_request = $Config->{'API.form_request'} || 0;
 
@@ -233,7 +234,7 @@ if($@)
 {
 	$MAILTEXT .= "Error occured while working with registry: ".$@;
 	$logger->error("Error occured while working with registry: ".$@);
-	$mail_subject = "Zapret error!";
+	$mail_subject = $subject_prefix." Zapret error!";
 	processMail();
 	exit 1;
 }
