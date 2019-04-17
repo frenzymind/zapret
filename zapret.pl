@@ -77,9 +77,9 @@ my $logger=Log::Log4perl->get_logger();
 
 my $api_url = $Config->{'API.url'} || die "API.url not defined.";
 my $req_file = $Config->{'PATH.req_file'} || die "PATH.req_file not defined.";
-$req_file = $dir."/".$req_file;
+$req_file = $dir."/cert/".$req_file;
 my $sig_file = $Config->{'PATH.sig_file'} || die "PATH.sig_file not defined.";
-$sig_file = $dir."/".$sig_file;
+$sig_file = $dir."/cert/".$sig_file;
 my $template_file = $Config->{'PATH.template_file'} || die "PATH.template_file not defined.";
 $template_file = $dir."/".$template_file;
 my $archive_path = $Config->{'PATH.archive'} || "";
