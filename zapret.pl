@@ -81,7 +81,7 @@ $req_file = $dir."/cert/".$req_file;
 my $sig_file = $Config->{'PATH.sig_file'} || die "PATH.sig_file not defined.";
 $sig_file = $dir."/cert/".$sig_file;
 my $template_file = $Config->{'PATH.template_file'} || die "PATH.template_file not defined.";
-$template_file = $dir."/".$template_file;
+$template_file = $dir."/cert/".$template_file;
 my $archive_path = $Config->{'PATH.archive'} || "";
 
 my $db_host = $Config->{'DB.host'} || die "DB.host not defined.";
@@ -1491,8 +1491,10 @@ sub formRequest
 	print REQ $new;
 	close REQ;
 	
-	if (-e "$dir/cert.pem") {
-		`$openssl_bin_path/openssl smime -sign -in $req_file -out $sig_file -binary -signer $dir/cert.pem -outform DER`;
+	my $pem_file = $dir."/cert/cert.pem";
+
+	if (-e $pem_file) {
+		`$openssl_bin_path/openssl smime -sign -in $req_file -out $sig_file -binary -signer $pem_file -outform DER`;
 	} else {
 		$logger->info("No cert.pem file");
 	}
