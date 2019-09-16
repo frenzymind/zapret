@@ -56,7 +56,7 @@ use constant
 
 ######## Config #########
 
-my $openssl_bin_path="/usr/local/gost-ssl/bin";
+my $openssl_bin_path="/usr/local/ssl/bin";
 
 my $dir = File::Basename::dirname($0);
 my $Config = {};
