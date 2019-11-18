@@ -109,6 +109,7 @@ my $smtp_port = $Config->{'MAIL.port'} || die "MAIL.port not defined.";
 my $smtp_login = $Config->{'MAIL.login'} || "";
 my $smtp_password = $Config->{'MAIL.password'} || "";
 
+my $mail_only_errors = $Config->{'MAIL.only_errors'} || 0;
 my $mail_excludes = $Config->{'MAIL.excludes'} || 0;
 my $mail_new = $Config->{'MAIL.new'} || 0;
 my $mail_new_ips = $Config->{'MAIL.new_ips'} || 0;
@@ -442,7 +443,10 @@ sub processMail
 			}
 		}
 	}
-	Mail($MAILTEXT, $mail_subject) if($MAILTEXT);
+	
+	if( $mail_only_errors eq '0' ) {
+		Mail($MAILTEXT, $mail_subject) if($MAILTEXT);
+	}
 }
 
 sub Mail
